@@ -3,6 +3,7 @@ from django.urls import include, path
 from . import views
 
 from api.authentication import urls as authentication_urls
+from api.tracker import urls as tracker_urls
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
 urlpatterns = [
@@ -11,4 +12,5 @@ urlpatterns = [
     path("auth/", include(authentication_urls)),
     path("docs/", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"),
     path("docs/schema/", SpectacularAPIView.as_view(), name="schema"),
+    path("tracker/", include(tracker_urls)),
 ]

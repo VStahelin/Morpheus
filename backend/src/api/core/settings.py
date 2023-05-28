@@ -44,6 +44,7 @@ PROJECT_APPS = [
     "api.core",
     "api.project",
     "api.authentication",
+    "api.tracker",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS
@@ -118,14 +119,7 @@ DATABASES = {
 }
 
 # Logging
-if env("ENABLE_SENTRY"):
-    import sentry_sdk
-    from sentry_sdk.integrations.django import DjangoIntegration
 
-    sentry_sdk.init(
-        dsn=env("SENTRY_DSN"),
-        integrations=[DjangoIntegration()],
-    )
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
