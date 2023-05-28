@@ -11,11 +11,12 @@ class GetAllUsers(BaseService):
 
 
 class CreateNewUser(BaseService):
-    def execute(self, name: str, password: str, username: str):
+    def execute(self, name: str, password: str, username: str, user_type: int):
         return User.objects.create_user(
             name=name,
             password=password,
             username=username,
+            user_type=user_type,
         )
 
 

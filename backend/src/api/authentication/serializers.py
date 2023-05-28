@@ -9,20 +9,25 @@ class SignupSerializer(serializers.Serializer):
     Username = serializers.CharField()
     Password = serializers.CharField()
     Name = serializers.CharField()
+    UserTypeId = serializers.IntegerField()
 
     def validate(self, attrs):
         username = attrs.get("Username")
         password = attrs.get("Password")
         name = attrs.get("Name")
+        user_type_id = attrs.get("UserTypeId")
+        if user_type_id not in [1, 2, 3]:
+            raise serializers.ValidationError("User type is not valid")
         if username and password and name:
             return {
                 "username": username,
                 "password": password,
                 "name": name,
+                "user_type": user_type_id,
             }
         else:
             raise serializers.ValidationError(
-                "Must include 'username' and 'password' and 'name'."
+                "Must include 'username' and 'password' and 'name' and 'user_type_id'."
             )
 
     def create(self, validated_data):

@@ -7,14 +7,23 @@ from .managers import UserManager
 
 
 class User(AbstractBaseUser):
+
+    USER_TYPE_CHOICES = (
+        (1, "regular"),
+        (2, "student"),
+        (3, "coach"),
+    )
+
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=255, blank=False)
     password = models.CharField(max_length=255, blank=False)
     username = models.CharField(max_length=255, unique=True, blank=False)
 
     is_superuser = models.BooleanField(_("Is admin"), default=False)
-    is_staff = models.BooleanField(_("Is staff"), default=False)
     is_active = models.BooleanField(_("Is active"), default=True)
+    is_staff = models.BooleanField(_("Is staff"), default=False)
+
+    user_type = models.PositiveSmallIntegerField(choices=USER_TYPE_CHOICES, default=1)
 
     USERNAME_FIELD = "username"
     REQUIRED_FIELDS = []
